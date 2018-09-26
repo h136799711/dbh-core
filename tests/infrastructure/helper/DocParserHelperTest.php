@@ -31,9 +31,8 @@ class DocParserHelperTest extends TestCase
      * @demo_required demo is required
      * @demo2_required (demo2) is required
      * @group doc_parser
-     * @param string $demo
-     * @param string $demoTest
      * @return \by\infrastructure\base\CallResult|void
+     * @throws \ReflectionException
      */
     public function testGetDoc()
     {
