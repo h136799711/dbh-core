@@ -1,4 +1,4 @@
-# itboye/architecture
+# dbh/core
 
 [![Latest Stable Version](https://poser.pugx.org/dbh/core/v/stable)](https://packagist.org/packages/dbh/core)
 [![Total Downloads](https://poser.pugx.org/dbh/core/downloads)](https://packagist.org/packages/dbh/core)
