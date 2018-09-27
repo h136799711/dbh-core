@@ -47,6 +47,7 @@ class CallResultTest extends TestCase
         $json = '{"code":2,"msg":"success","data":{"username":1}}';
         $this->assertNotEmpty($obj);
         $this->assertJsonStringEqualsJsonString($json, $obj->__toString());
+        var_dump($obj);
     }
 
     // construct

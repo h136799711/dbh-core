@@ -16,7 +16,6 @@
 
 namespace by\infrastructure\helper;
 
-use by\component\lang\helper\LangHelper;
 use by\infrastructure\base\CallResult;
 
 /**
