@@ -43,6 +43,50 @@ class StringHelper
     private static $codeSet = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
 
     /**
+     * 62位字符数组 , 数字 + 英文字母（大小写）
+     * @var array
+     */
+    public static $char62 = [
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z'];
+
+    /**
+     * int 转 62进制 （通过数字 + 大小写字母表示）
+     * 32位系统通常是 2147483648
+     * 64位系统通常是
+     * interge最大值参考如下链接
+     * http://www.php.net/manual/zh/language.types.integer.php
+     * @param integer $n  n必须大于0 小于 PHP_INT_MAX 取决于系统是32位还是64位
+     * @return int|string
+     */
+    public static function intTo62($n) {
+        if (strval($n) > strval(PHP_INT_MAX)) {
+            return -1;
+        }
+        $n = intval($n);
+        if ($n < 0) {
+            return -1;
+        }
+        if ($n === 0) {
+            return 0;
+        }
+        $char = '';
+        do {
+            $key = ($n - 1) % 62;
+            $char = self::$char62[$key] . $char;
+            $n = floor(($n - $key) / 62);
+        } while ($n > 0);
+
+        return $char;
+    }
+
+
+    /**
      * 数字转36进制字符串，默认大写字符串
      * 1. 只支持大于0的转换，小于0 则会返回0
      * @param int $num 待转换数字 大于0
