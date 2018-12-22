@@ -55,6 +55,67 @@ class StringHelper
             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
             'u', 'v', 'w', 'x', 'y', 'z'];
 
+    public static $char36 = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+        'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+
+    public static $pow62 = [
+        1,
+        62,
+        3844,
+        238328,
+        14776336,
+        916132832,
+        56800235584,
+        3521614606208,
+        218340105584896,
+        13537086546263552,
+        839299365868340224
+    ];
+    public static $pow36 = [
+        1,
+        36,
+        1296,
+        46656,
+        1679616,
+        60466176,
+        2176782336,
+        78364164096,
+        2821109907456,
+        101559956668416,
+        3656158440062976,
+    ];
+
+    /**
+     * 62进制 转 int
+     * 不支持太大的数要注意
+     * @param $c62
+     * @return float|int
+     */
+    public static function char62ToInt($c62) {
+        $len = strlen($c62);
+        if ($len > 10) return -1;
+        $num = 0;
+        $cnt = 0;
+        while ($cnt < $len) {
+            $index = 0;
+            $char = substr($c62, $cnt, 1);
+            for ($i = 0; $i < 62; $i ++) {
+                if (self::$char62[$i] == $char) {
+                    $index = $i + 1;
+                    break;
+                }
+            }
+
+            $num = $num + $index * self::$pow62[$len - $cnt - 1];
+            $cnt++;
+        }
+        return $num;
+    }
+
     /**
      * int 转 62进制 （通过数字 + 大小写字母表示）
      * 32位系统通常是 2147483648
@@ -97,16 +158,38 @@ class StringHelper
         $num = intval($num);
         if ($num <= 0)
             return 0;
-        $charArr = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
         $char = '';
         do {
             $key = ($num - 1) % 36;
-            $char = $charArr[$key] . $char;
+            $char = self::$char36[$key] . $char;
             $num = floor(($num - $key) / 36);
         } while ($num > 0);
         return $char;
     }
 
+    /**
+     *
+     * 不支持太大的数要注意
+     * @param $c36
+     * @return float|int
+     */
+    public static function char36ToInt($c36) {
+        $len = strlen($c36);
+        if ($len > 10) return -1;
+        $num = 0;
+        $cnt = 0;
+        while ($cnt < $len) {
+            $index = 0;
+            for ($i = 0; $i < 36; $i ++) {
+                if (self::$char36[$i] == substr($c36, $cnt, 1)) {
+                    $index = $i;
+                }
+            }
+            $num = $num + ($index + 1) * self::$pow36[$len - $cnt - 1];
+            $cnt++;
+        }
+        return $num;
+    }
     /**
      * utf8编码转GBK编码
      * @param $str

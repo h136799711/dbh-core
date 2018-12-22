@@ -18,6 +18,7 @@ namespace byTest\infrastructure\helper;
 
 use by\component\string_extend\helper\StringHelper;
 use by\infrastructure\helper\OSHelper;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
@@ -30,12 +31,21 @@ class StringHelperTest extends TestCase
         $n = 12.01;
         $str = StringHelper::intTo62($n);
         var_dump($str);
-        $n = 9223372036854775807;
+        $n = floor(PHP_INT_MAX / 100);
         $str = StringHelper::intTo62($n);
         var_dump($str);
-        $n = 19223372036854775807;
-        $str = StringHelper::intTo62($n);
+        $n1 = StringHelper::char62ToInt($str);
+        var_dump($n1);
+        var_dump($n - $n1);
+        Assert::assertEquals($n, $n1);
+
+//        $n = 666666886;
+        $n = floor(PHP_INT_MAX / 10000);
+        $str = StringHelper::intTo36Hex($n);
         var_dump($str);
+        $n1 = StringHelper::char36ToInt($str);
+        var_dump($n1);
+        Assert::assertEquals($n, $n1);
     }
 
     /**
