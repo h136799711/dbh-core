@@ -117,6 +117,8 @@ class StringHelper
     }
 
     /**
+     *
+     * 转换后的字符串长度不会大于10，超过10则返回-1
      * int 转 62进制 （通过数字 + 大小写字母表示）
      * 32位系统通常是 2147483648
      * 64位系统通常是
@@ -141,6 +143,7 @@ class StringHelper
             $key = ($n - 1) % 62;
             $char = self::$char62[$key] . $char;
             $n = floor(($n - $key) / 62);
+            if (strlen($char) > 10) return -1;
         } while ($n > 0);
 
         return $char;
@@ -150,6 +153,7 @@ class StringHelper
     /**
      * 数字转36进制字符串，默认大写字符串
      * 1. 只支持大于0的转换，小于0 则会返回0
+     * 转换后的字符串长度不会大于10，超过10则返回-1
      * @param int $num 待转换数字 大于0
      * @return int|string
      */
@@ -163,6 +167,7 @@ class StringHelper
             $key = ($num - 1) % 36;
             $char = self::$char36[$key] . $char;
             $num = floor(($num - $key) / 36);
+            if (strlen($char) > 10) return -1;
         } while ($num > 0);
         return $char;
     }
@@ -183,6 +188,7 @@ class StringHelper
             for ($i = 0; $i < 36; $i ++) {
                 if (self::$char36[$i] == substr($c36, $cnt, 1)) {
                     $index = $i;
+                    break;
                 }
             }
             $num = $num + ($index + 1) * self::$pow36[$len - $cnt - 1];
