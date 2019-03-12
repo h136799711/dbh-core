@@ -43,8 +43,117 @@ class StringHelper
     private static $codeSet = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
 
     /**
+     * 62位字符数组 , 数字 + 英文字母（大小写）
+     * @var array
+     */
+    public static $char62 = [
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z'];
+
+    public static $char36 = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+        'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+
+    public static $pow62 = [
+        1,
+        62,
+        3844,
+        238328,
+        14776336,
+        916132832,
+        56800235584,
+        3521614606208,
+        218340105584896,
+        13537086546263552,
+        839299365868340224
+    ];
+    public static $pow36 = [
+        1,
+        36,
+        1296,
+        46656,
+        1679616,
+        60466176,
+        2176782336,
+        78364164096,
+        2821109907456,
+        101559956668416,
+        3656158440062976,
+    ];
+
+    /**
+     * 62进制 转 int
+     * 不支持太大的数要注意
+     * @param $c62
+     * @return float|int
+     */
+    public static function char62ToInt($c62) {
+        $len = strlen($c62);
+        if ($len > 10) return -1;
+        $num = 0;
+        $cnt = 0;
+        while ($cnt < $len) {
+            $index = 0;
+            $char = substr($c62, $cnt, 1);
+            for ($i = 0; $i < 62; $i ++) {
+                if (self::$char62[$i] == $char) {
+                    $index = $i + 1;
+                    break;
+                }
+            }
+
+            $num = $num + $index * self::$pow62[$len - $cnt - 1];
+            $cnt++;
+        }
+        return $num;
+    }
+
+    /**
+     *
+     * 转换后的字符串长度不会大于10，超过10则返回-1
+     * int 转 62进制 （通过数字 + 大小写字母表示）
+     * 32位系统通常是 2147483648
+     * 64位系统通常是
+     * interge最大值参考如下链接
+     * http://www.php.net/manual/zh/language.types.integer.php
+     * @param integer $n  n必须大于0 小于 PHP_INT_MAX 取决于系统是32位还是64位
+     * @return int|string
+     */
+    public static function intTo62($n) {
+        if (strval($n) > strval(PHP_INT_MAX)) {
+            return -1;
+        }
+        $n = intval($n);
+        if ($n < 0) {
+            return -1;
+        }
+        if ($n === 0) {
+            return 0;
+        }
+        $char = '';
+        do {
+            $key = ($n - 1) % 62;
+            $char = self::$char62[$key] . $char;
+            $n = floor(($n - $key) / 62);
+            if (strlen($char) > 10) return -1;
+        } while ($n > 0);
+
+        return $char;
+    }
+
+
+    /**
      * 数字转36进制字符串，默认大写字符串
      * 1. 只支持大于0的转换，小于0 则会返回0
+     * 转换后的字符串长度不会大于10，超过10则返回-1
      * @param int $num 待转换数字 大于0
      * @return int|string
      */
@@ -53,16 +162,40 @@ class StringHelper
         $num = intval($num);
         if ($num <= 0)
             return 0;
-        $charArr = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
         $char = '';
         do {
             $key = ($num - 1) % 36;
-            $char = $charArr[$key] . $char;
+            $char = self::$char36[$key] . $char;
             $num = floor(($num - $key) / 36);
+            if (strlen($char) > 10) return -1;
         } while ($num > 0);
         return $char;
     }
 
+    /**
+     *
+     * 不支持太大的数要注意
+     * @param $c36
+     * @return float|int
+     */
+    public static function char36ToInt($c36) {
+        $len = strlen($c36);
+        if ($len > 10) return -1;
+        $num = 0;
+        $cnt = 0;
+        while ($cnt < $len) {
+            $index = 0;
+            for ($i = 0; $i < 36; $i ++) {
+                if (self::$char36[$i] == substr($c36, $cnt, 1)) {
+                    $index = $i;
+                    break;
+                }
+            }
+            $num = $num + ($index + 1) * self::$pow36[$len - $cnt - 1];
+            $cnt++;
+        }
+        return $num;
+    }
     /**
      * utf8编码转GBK编码
      * @param $str
