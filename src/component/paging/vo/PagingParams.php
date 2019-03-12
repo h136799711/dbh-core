@@ -35,6 +35,17 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
     }
 
     /**
+     * 偏移量 如果pageIndex是1 则返回0，2 则是 pageSize ,3则是 2*pageSize
+     * @return float|int
+     */
+    public function offset()
+    {
+        $pageIndex = $this->getPageIndex() - 1;
+        $pageIndex = $pageIndex < 0 ? 0 : $pageIndex;
+        return $pageIndex * $this->getPageSize();
+    }
+
+    /**
      * @return mixed
      */
     public function getPageIndex()
@@ -43,6 +54,7 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
     }
 
     /**
+     * 保证大于等于0
      * @param mixed $pageIndex
      */
     public function setPageIndex($pageIndex)
@@ -60,6 +72,7 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
     }
 
     /**
+     * 值 大于 1
      * @param mixed $pageSize
      */
     public function setPageSize($pageSize)
