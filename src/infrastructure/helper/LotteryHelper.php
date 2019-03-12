@@ -19,10 +19,11 @@ class LotteryHelper
     /**
      * 获取一个奖项
      * 格式 , 所有中奖概率之和必须小于 $maxProp
+     * 奖项编号推荐为奖品的唯一id
      * ['奖项编号'=>中奖概率, '奖项编号'=>中奖概率]
      * @param array $allPrize
      * @param int $maxProp
-     * @return int
+     * @return int 小于0 则错误，可以视作不中奖，其它情况返回奖项编号
      */
     public static function randPrize(array $allPrize, $maxProp = 1000)
     {
