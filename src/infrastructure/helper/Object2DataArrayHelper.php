@@ -39,6 +39,7 @@ class Object2DataArrayHelper
      * @param array $properties 属性名称数组，属性名称必须是驼峰式
      * @param bool $ignoreNull 是否忽略null值，getter后null值的不会获取到
      * @return array
+     * @throws \ReflectionException
      */
     public static function getDataArrayFrom($instance, $properties = [], $ignoreNull = true)
     {

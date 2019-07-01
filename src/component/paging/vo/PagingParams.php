@@ -30,6 +30,7 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
     // construct
     public function __construct($pageIndex = 0, $pageSize = 10)
     {
+        parent::__construct();
         $this->setPageIndex($pageIndex);
         $this->setPageSize($pageSize);
     }

@@ -41,7 +41,7 @@ class ValidateHelper
 
     /**
      * 判断是否为合法的密码
-     * @author hebidu <email:346551990@qq.com>
+     * @author peter<chendaguo@mail.com>
      * @param $password
      * @return CallResult
      */
@@ -58,7 +58,7 @@ class ValidateHelper
 
     /**
      * 判定是否为一个合法的11位字符串
-     * @author hebidu <email:346551990@qq.com>
+     * @author peter<chendaguo@mail.com>
      * @param $str
      * @return bool
      */
@@ -80,7 +80,7 @@ class ValidateHelper
 
     /**
      * 验证是否合法的结果,含数组
-     * @author hebidu <email:346551990@qq.com>
+     * @author peter<chendaguo@mail.com>
      * @param $result array
      * @return bool
      */

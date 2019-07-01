@@ -19,7 +19,7 @@ namespace by\infrastructure\interfaces;
 /**
  * Interface ObjectToArrayInterface
  * 对象类转换为数组接口
- * @author hebidu <email:346551990@qq.com>
+ * @author peter<chendaguo@mail.com>
  * @modify 2017-11-27 14:11:21
  * @package by\infrastructure\interfaces
  */
