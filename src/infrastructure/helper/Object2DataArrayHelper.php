@@ -80,6 +80,7 @@ class Object2DataArrayHelper
     /**
      * @param $clsName
      * @return \ReflectionClass
+     * @throws \ReflectionException
      */
     private static function getReflectionCls($clsName)
     {
