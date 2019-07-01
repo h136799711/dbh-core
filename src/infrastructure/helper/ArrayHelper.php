@@ -1,6 +1,6 @@
 <?php
 /**
- * 注意：本内容仅限于博也公司内部传阅,禁止外泄以及用于其他的商业目的
+ * 注意：本内容仅限于California内部传阅,禁止外泄以及用于其他的商业目的
  * @author    peter<chendaguo@mail.com>
  * @copyright 2017  CalifoniaInc. All rights reserved.
  *
@@ -73,7 +73,7 @@ class ArrayHelper
      * 2. 只测试了部分场景php版本7测试过，其它版本没测试过，cli环境下也没测试过
      * 从数组中获取值赋值给 $param 变量 ,$param的变量名作为key值从数组中取值
      * 例子:
-     * $array = ['username'=>'hebidu']
+     * $array = ['username'=>'peter']
      * self::setValue($username, $array, 'default_value', get_defined_vars())
      * @param $param
      * @param $array

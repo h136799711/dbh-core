@@ -1,6 +1,6 @@
 <?php
 /**
- * 注意：本内容仅限于博也公司内部传阅,禁止外泄以及用于其他的商业目的
+ * 注意：本内容仅限于California内部传阅,禁止外泄以及用于其他的商业目的
  * @author    peter<chendaguo@mail.com>
  * @copyright 2017  CalifoniaInc. All rights reserved.
  *

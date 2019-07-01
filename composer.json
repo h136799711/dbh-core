@@ -4,13 +4,13 @@
   "type": "library",
   "license": "MIT",
   "keywords": [
-    "hebidu"
+    "peter"
   ],
   "minimum-stability": "stable",
   "authors": [
     {
-      "name": "hebidu",
-      "email": "hebiduhebi@126.com",
+      "name": "peter",
+      "email": "peterhebi@126.com",
       "role": "developer"
     }
   ],

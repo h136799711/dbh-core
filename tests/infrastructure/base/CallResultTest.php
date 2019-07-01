@@ -1,8 +1,8 @@
 <?php
 /**
- * 注意：本内容仅限于博也公司内部传阅,禁止外泄以及用于其他的商业目的
+ * 注意：本内容仅限于California内部传阅,禁止外泄以及用于其他的商业目的
  * @author    peter<chendaguo@mail.com>
- * @copyright 2017 www.itboye.com Boye Inc. All rights reserved.
+ * @copyright 2017 www.peter.com Peter Inc. All rights reserved.
  *
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  * Revision History Version
