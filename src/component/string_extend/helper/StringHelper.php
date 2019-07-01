@@ -330,4 +330,22 @@ class StringHelper
         if (empty($string)) return [];
         return explode($delimiter, $string, $limit);
     }
+
+    /**
+     * 隐藏关键字符 用 $replaceChar 替换
+     * hideSensitive('13485123499', 3, 4, 4, *)
+     * 处理后 = 134****3499
+     * @param string $str 原始字符串
+     * @param int $firstLen 保留原始字符前3位
+     * @param int $lastLen  保留原始字符末4位
+     * @param int $replaceCount 替换字符的数量
+     * @param string $replaceChar 默认*
+     * @return string
+     */
+    public static function hideSensitive($str, $firstLen = 3, $lastLen = 4, $replaceCount = 4, $replaceChar = '*') {
+        if (strlen($str) > $firstLen + $lastLen) {
+            return substr($str, 0, $firstLen). str_repeat($replaceChar, $replaceCount).substr($str, -$lastLen);
+        }
+        return $str;
+    }
 }
