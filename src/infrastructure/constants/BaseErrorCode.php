@@ -58,6 +58,11 @@ class BaseErrorCode
      */
     const Api_No_Auth = 1007;
 
+    /**
+     * 接口维护中,请稍后再试
+     */
+    const Api_Under_Maintenance = 1008;
+
 
     /**
      * 需要登录
