@@ -8,10 +8,7 @@
 
 namespace by\component\exception;
 
-
-use Throwable;
-
-class ForbidException extends \Exception
+class ForbidException extends BaseException
 {
     public function __construct($message = "permission denied", $code = 403, Throwable $previous = null)
     {

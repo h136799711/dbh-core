@@ -12,7 +12,7 @@ namespace by\component\exception;
 use by\infrastructure\constants\BaseErrorCode;
 use Throwable;
 
-class ClientIdLimitException extends \Exception
+class ClientIdLimitException extends BaseException
 {
     /**
      * ClientIdLimitException constructor.

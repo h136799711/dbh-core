@@ -10,7 +10,7 @@ namespace by\component\exception;
 
 use by\infrastructure\constants\BaseErrorCode;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidArgumentException extends BaseException
 {
     /**
      * ClientIdLimitException constructor.
