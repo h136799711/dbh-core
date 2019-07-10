@@ -96,12 +96,13 @@ class ValidateHelper
 
     /**
      * 判断是否为邮箱
+     * 支持中文前缀，子域名邮箱
      * @param $email
      * @return bool
      */
     public static function isEmail($email)
     {
-        $pattern = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
+        $pattern = "/^[A-Za-z0-9\\x{4e00}-\\x{9fa5}]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$/iu";
         if (is_string($email) && preg_match($pattern, $email)) {
             return true;
         }
