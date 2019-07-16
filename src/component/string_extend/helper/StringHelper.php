@@ -47,13 +47,13 @@ class StringHelper
      * @var array
      */
     public static $char62 = [
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-            'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-            'u', 'v', 'w', 'x', 'y', 'z'];
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+        'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+        'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+        'u', 'v', 'w', 'x', 'y', 'z'];
 
     public static $char36 = [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -95,7 +95,8 @@ class StringHelper
      * @param $c62
      * @return float|int
      */
-    public static function char62ToInt($c62) {
+    public static function char62ToInt($c62)
+    {
         $len = strlen($c62);
         if ($len > 10) return -1;
         $num = 0;
@@ -103,7 +104,7 @@ class StringHelper
         while ($cnt < $len) {
             $index = 0;
             $char = substr($c62, $cnt, 1);
-            for ($i = 0; $i < 62; $i ++) {
+            for ($i = 0; $i < 62; $i++) {
                 if (self::$char62[$i] == $char) {
                     $index = $i + 1;
                     break;
@@ -124,10 +125,11 @@ class StringHelper
      * 64位系统通常是
      * interge最大值参考如下链接
      * http://www.php.net/manual/zh/language.types.integer.php
-     * @param integer $n  n必须大于0 小于 PHP_INT_MAX 取决于系统是32位还是64位
+     * @param integer $n n必须大于0 小于 PHP_INT_MAX 取决于系统是32位还是64位
      * @return int|string
      */
-    public static function intTo62($n) {
+    public static function intTo62($n)
+    {
         if (strval($n) > strval(PHP_INT_MAX)) {
             return -1;
         }
@@ -178,14 +180,15 @@ class StringHelper
      * @param $c36
      * @return float|int
      */
-    public static function char36ToInt($c36) {
+    public static function char36ToInt($c36)
+    {
         $len = strlen($c36);
         if ($len > 10) return -1;
         $num = 0;
         $cnt = 0;
         while ($cnt < $len) {
             $index = 0;
-            for ($i = 0; $i < 36; $i ++) {
+            for ($i = 0; $i < 36; $i++) {
                 if (self::$char36[$i] == substr($c36, $cnt, 1)) {
                     $index = $i;
                     break;
@@ -196,6 +199,7 @@ class StringHelper
         }
         return $num;
     }
+
     /**
      * utf8编码转GBK编码
      * @param $str
@@ -337,15 +341,31 @@ class StringHelper
      * 处理后 = 134****3499
      * @param string $str 原始字符串
      * @param int $firstLen 保留原始字符前3位
-     * @param int $lastLen  保留原始字符末4位
+     * @param int $lastLen 保留原始字符末4位
      * @param int $replaceCount 替换字符的数量
      * @param string $replaceChar 默认*
      * @return string
      */
-    public static function hideSensitive($str, $firstLen = 3, $lastLen = 4, $replaceCount = 4, $replaceChar = '*') {
+    public static function hideSensitive($str, $firstLen = 3, $lastLen = 4, $replaceCount = 4, $replaceChar = '*')
+    {
         if (strlen($str) > $firstLen + $lastLen) {
-            return substr($str, 0, $firstLen). str_repeat($replaceChar, $replaceCount).substr($str, -$lastLen);
+            return substr($str, 0, $firstLen) . str_repeat($replaceChar, $replaceCount) . substr($str, -$lastLen);
         }
         return $str;
     }
+
+    /**
+     * number_format的替换
+     *
+     * @param float $number 数值
+     * @param int $decimal 小数点保留位数
+     * @param string $dec_point 小数点符号 默认 . 符号
+     * @param string $thousands_sep 每隔3位数符号，原生是 , 符号，这边默认 无
+     * @return string 保留小数点后的数字
+     */
+    public static function numberFormat($number, $decimal = 2, $dec_point = ".", $thousands_sep = "")
+    {
+        return number_format($number, $decimal, $dec_point, $thousands_sep);
+    }
+
 }
