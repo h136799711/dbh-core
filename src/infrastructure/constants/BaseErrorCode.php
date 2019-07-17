@@ -65,6 +65,11 @@ class BaseErrorCode
 
 
     /**
+     * 用户尚未进行邮件认证，请先认证邮件
+     */
+    const User_Not_Verify_Email = 1112;
+
+    /**
      * 需要登录
      */
     const Api_Need_Login = 1111;
@@ -84,4 +89,6 @@ class BaseErrorCode
      * 接口请求次数过多
      */
     const Api_Request_Rate_Limit = 429;
+
+
 }
