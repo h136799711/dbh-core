@@ -82,7 +82,7 @@ class TimeHelper
         }
         if (self::ShowHour === ($show & self::ShowHour)) {
             // 显示天
-            $format['hour'] = (floor($seconds / 3600) % 365);
+            $format['hour'] = (floor($seconds / 3600) % 24);
         }
         if (self::ShowDay === ($show & self::ShowDay)) {
             // 显示天

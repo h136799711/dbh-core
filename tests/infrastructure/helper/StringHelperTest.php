@@ -25,7 +25,7 @@ class StringHelperTest extends TestCase
     // member function
 
     public function testTime() {
-        $seconds = 3600 * 8 + 60;
+        $seconds = 3600 * 78 + 3333333;
         $str = TimeHelper::formatString($seconds);
         var_dump($str);
 
