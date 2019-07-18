@@ -16,9 +16,7 @@
 
 namespace byTest\infrastructure\helper;
 
-use by\component\string_extend\helper\StringHelper;
-use by\infrastructure\helper\OSHelper;
-use PHPUnit\Framework\Assert;
+use by\infrastructure\helper\TimeHelper;
 use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
@@ -26,27 +24,34 @@ class StringHelperTest extends TestCase
 
     // member function
 
-    public function test62() {
-        var_dump(OSHelper::systemBit().'位系统');
-        $n = 12.01;
-        $str = StringHelper::intTo62($n);
+    public function testTime() {
+        $seconds = 3600 * 8 + 60;
+        $str = TimeHelper::formatString($seconds);
         var_dump($str);
-        $n = floor(PHP_INT_MAX / 100);
-        $str = StringHelper::intTo62($n);
-        var_dump($str);
-        $n1 = StringHelper::char62ToInt($str);
-        var_dump($n1);
-        var_dump($n - $n1);
-        Assert::assertEquals($n, $n1);
 
-//        $n = 666666886;
-        $n = floor(PHP_INT_MAX / 10000);
-        $str = StringHelper::intTo36Hex($n);
-        var_dump($str);
-        $n1 = StringHelper::char36ToInt($str);
-        var_dump($n1);
-        Assert::assertEquals($n, $n1);
     }
+
+//    public function test62() {
+//        var_dump(OSHelper::systemBit().'位系统');
+//        $n = 12.01;
+//        $str = StringHelper::intTo62($n);
+//        var_dump($str);
+//        $n = floor(PHP_INT_MAX / 100);
+//        $str = StringHelper::intTo62($n);
+//        var_dump($str);
+//        $n1 = StringHelper::char62ToInt($str);
+//        var_dump($n1);
+//        var_dump($n - $n1);
+//        Assert::assertEquals($n, $n1);
+//
+////        $n = 666666886;
+//        $n = floor(PHP_INT_MAX / 10000);
+//        $str = StringHelper::intTo36Hex($n);
+//        var_dump($str);
+//        $n1 = StringHelper::char36ToInt($str);
+//        var_dump($n1);
+//        Assert::assertEquals($n, $n1);
+//    }
 
     /**
      * @covers \by\infrastructure\helper\StringHelper::randNumbers
