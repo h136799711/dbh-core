@@ -21,7 +21,6 @@ class TimeHelper
     public static function formatString($seconds, $show = self::ShowAll, $lang = 'zh')
     {
         $format = self::format($seconds, $show);
-        var_dump($format);
         $str = '';
         if ($lang == 'zh') {
             if ($format['year'] > 0) {
