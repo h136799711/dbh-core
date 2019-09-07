@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\common\business;
+namespace by\infrastructure\helper;
 
 
 /**
@@ -12,22 +12,23 @@ namespace ss\common\business;
 class RateStaticsHelper
 {
 
-    public static $seconds = 31;
-    public static $passedSecondsRate = [];// $seconds - 1秒内接收到的消息数量
-    public static $avgRate = 0; // $seconds - 1秒内的平均消息数量
+    public $seconds = 31;
+    public $passedSecondsRate = [];// $seconds - 1秒内接收到的消息数量
+    public $avgRate = 0; // $seconds - 1秒内的平均消息数量
 
-    public static function record($now, $count = 1) {
-        if (count(self::$passedSecondsRate) != self::$seconds) {
-            for ($i = 0; $i < self::$seconds; $i++) {
-                self::$passedSecondsRate[$i] = [$now - $i, 0];
+    public function record($now, $count = 1)
+    {
+        if (count($this->passedSecondsRate) != $this->seconds) {
+            for ($i = 0; $i < $this->seconds; $i++) {
+                $this->passedSecondsRate[$i] = [$now - $i, 0];
             }
         }
         $tmp = [];
-        for ($i = 0; $i < self::$seconds; $i++) {
+        for ($i = 0; $i < $this->seconds; $i++) {
             $tmp[$i] = [$now - $i, 0];
-            for ($j = 0; $j < self::$seconds; $j++) {
-                if ($tmp[$i][0] === self::$passedSecondsRate[$j][0]) {
-                    $tmp[$i][1] = self::$passedSecondsRate[$j][1];
+            for ($j = 0; $j < $this->seconds; $j++) {
+                if ($tmp[$i][0] === $this->passedSecondsRate[$j][0]) {
+                    $tmp[$i][1] = $this->passedSecondsRate[$j][1];
                     if ($i === 0) {
                         $tmp[$i][1] += $count;
                     }
@@ -35,14 +36,14 @@ class RateStaticsHelper
                 }
             }
         }
-        self::$avgRate = 0;
-        for ($j = 0; $j < self::$seconds; $j++) {
-            self::$passedSecondsRate[$j][0] = $tmp[$j][0];
-            self::$passedSecondsRate[$j][1] = $tmp[$j][1];
+        $this->avgRate = 0;
+        for ($j = 0; $j < $this->seconds; $j++) {
+            $this->passedSecondsRate[$j][0] = $tmp[$j][0];
+            $this->passedSecondsRate[$j][1] = $tmp[$j][1];
             if ($j > 0) {
-                self::$avgRate += $tmp[$j][1];
+                $this->avgRate += $tmp[$j][1];
             }
         }
-        self::$avgRate = number_format(self::$avgRate / (self::$seconds - 1), 4, ".", "");
+        $this->avgRate = number_format($this->avgRate / ($this->seconds - 1), 4, ".", "");
     }
 }
