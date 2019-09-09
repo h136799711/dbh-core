@@ -368,4 +368,26 @@ class StringHelper
         return number_format($number, $decimal, $dec_point, $thousands_sep);
     }
 
+    /**
+     * 过滤标点符号
+     * @param $str
+     * @param string $replace
+     * @param array $extraChar
+     * @return mixed
+     */
+    public static function filterPunctuation($str, $replace = '', $extraChar = [])
+    {
+        $default = array('）','（','￥','¥', ' ', '｛', '-', '—', '【', '】', '《', '》', '｝', '', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*',
+            '+', ', ', '-', '.', '/', ':', ';', '<', '=', '>',
+            '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|',
+            '}', '~', '；', '﹔', '︰', '﹕', '：', '，', '﹐', '、',
+            '．', '﹒', '˙', '·', '。', '？', '！', '～', '‥', '‧',
+            '′', '〃', '〝', '〞', '‵', '‘', '’', '『', '』', '「',
+            '」', '“', '”', '…', '❞', '❝', '﹁', '﹂', '﹃', '﹄');
+
+        return str_replace(
+            array_merge($default, $extraChar),
+            $replace,
+            $str);
+    }
 }

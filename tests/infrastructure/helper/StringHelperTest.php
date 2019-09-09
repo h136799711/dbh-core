@@ -16,11 +16,18 @@
 
 namespace byTest\infrastructure\helper;
 
+use by\component\string_extend\helper\StringHelper;
 use by\infrastructure\helper\TimeHelper;
 use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
 {
+
+    public function testFilter() {
+        $str = "如果键入了一个地址，，。？：、|=+-*（……&%¥#@！～··/)））（ml/，？请确保标点符号和拼写是正确的。";
+        $filter = StringHelper::filterPunctuation($str);
+        var_dump($filter);
+    }
 
     // member function
 
