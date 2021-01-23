@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: peter
- * Date: 2018/12/21
- * Time: 12:35
- */
 
 namespace by\component\exception;
 
