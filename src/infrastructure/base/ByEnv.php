@@ -1,6 +1,6 @@
 <?php
 
-namespace Dbh\SfCoreBundle\Common;
+namespace by\infrastructure\base;
 
 class ByEnv
 {
