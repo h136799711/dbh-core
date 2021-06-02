@@ -94,4 +94,30 @@ class TimeHelper
         }
         return $format;
     }
+
+    /**
+     * 今日0点时间戳
+     * @return false|int
+     */
+    public static function todayTime() {
+        $todayTime = strtotime(date("Y-m-d 0:0:0"));
+        return $todayTime;
+    }
+
+    /**
+     * 今天 0点的 日期格式
+     * @param string $format 日期格式默认 Ymd
+     * @return false|string
+     */
+    public static function today($format = 'Ymd') {
+        return date($format, self::todayTime());
+    }
+
+    /**
+     * 本月1日0点时间戳
+     * @return false|int
+     */
+    public static function thisMonthZeroHour() {
+        return strtotime(date("Y-m-01 0:0:0"));
+    }
 }

@@ -16,6 +16,8 @@
 
 namespace by\component\string_extend\helper;
 
+use by\component\encrypt\des\Des;
+
 /**
  * Class StringHelper
  * 字符串帮助类
@@ -389,5 +391,27 @@ class StringHelper
             array_merge($default, $extraChar),
             $replace,
             $str);
+    }
+
+    public static function generateSessionKey($key, $uid, $expire = 8 * 3600) {
+        $rand = str_pad(strval(rand(0, 1000000)), "7", "0", STR_PAD_LEFT);
+        $origin = 'R'.$rand.'U'.$uid.'T'.(time() + $expire);
+        return openssl_encrypt($origin, "des-ecb", $key);
+    }
+
+    public static function isValidSessionKey($content, $uid, $key) {
+        $des = trim(openssl_decrypt($content, "des-ecb", $key));
+        $timePos = strpos($des, "T");
+        if ($timePos === -1) return -1;
+        $time = substr($des, $timePos + 1, strlen($des) - $timePos);
+        // 超过有效期
+        if ($time < time()) return -2;
+        $uidPos = strpos($des, "U");
+        if ($uidPos === -1) return -3;
+        $trueUid = substr($des, $uidPos + 1, $timePos - $uidPos - 1);
+        if (strval($trueUid) !== strval($uid)) {
+            return -4;
+        }
+        return 0;
     }
 }
