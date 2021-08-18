@@ -1,5 +1,5 @@
 {
-  "name": "dbh/core",
+  "name": "peter/core",
   "description": "core code",
   "type": "library",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "authors": [
     {
       "name": "peter",
-      "email": "peterhebi@126.com",
+      "email": "peter@126.com",
       "role": "developer"
     }
   ],
