@@ -21,28 +21,27 @@ use by\infrastructure\base\BaseEntity;
 
 class TestEntity extends BaseEntity
 {
-    private $name;
+    private string $name;
 
     public function __construct()
     {
         parent::__construct();
-        $this->setName('my name is test entity');
+        $this->name = 'my name is test entity';
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
-
 }

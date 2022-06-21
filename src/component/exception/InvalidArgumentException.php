@@ -9,6 +9,7 @@
 namespace by\component\exception;
 
 use by\infrastructure\constants\BaseErrorCode;
+use JetBrains\PhpStorm\Pure;
 
 class InvalidArgumentException extends BaseException
 {
@@ -18,6 +19,7 @@ class InvalidArgumentException extends BaseException
      * @param int $code
      * @param \Throwable|null $previous
      */
+    #[Pure]
     public function __construct($message , $code = BaseErrorCode::Invalid_Parameter, \Throwable $previous = null)
     {
         parent::__construct('', $code, $previous);

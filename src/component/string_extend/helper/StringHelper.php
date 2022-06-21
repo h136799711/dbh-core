@@ -16,8 +16,6 @@
 
 namespace by\component\string_extend\helper;
 
-use by\component\encrypt\des\Des;
-
 /**
  * Class StringHelper
  * 字符串帮助类
@@ -40,15 +38,15 @@ class StringHelper
      */
     const NUMBERS = 3;
 
-    private static $alphaCodeSet = 'abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
+    private static string $alphaCodeSet = 'abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
 
-    private static $codeSet = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
+    private static string $codeSet = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
 
     /**
      * 62位字符数组 , 数字 + 英文字母（大小写）
      * @var array
      */
-    public static $char62 = [
+    public static array $char62 = [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
@@ -57,14 +55,14 @@ class StringHelper
         'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
         'u', 'v', 'w', 'x', 'y', 'z'];
 
-    public static $char36 = [
+    public static array $char36 = [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
         'U', 'V', 'W', 'X', 'Y', 'Z'
     ];
 
-    public static $pow62 = [
+    public static array $pow62 = [
         1,
         62,
         3844,
@@ -77,7 +75,7 @@ class StringHelper
         13537086546263552,
         839299365868340224
     ];
-    public static $pow36 = [
+    public static array $pow36 = [
         1,
         36,
         1296,
@@ -95,12 +93,12 @@ class StringHelper
      * 62进制 转 int
      * 不支持太大的数要注意
      * @param $c62
-     * @return float|int
+     * @return float
      */
-    public static function char62ToInt($c62)
+    public static function char62ToInt($c62): float
     {
         $len = strlen($c62);
-        if ($len > 10) return -1;
+        if ($len > 10) return -1.0;
         $num = 0;
         $cnt = 0;
         while ($cnt < $len) {
@@ -130,7 +128,7 @@ class StringHelper
      * @param integer $n n必须大于0 小于 PHP_INT_MAX 取决于系统是32位还是64位
      * @return int|string
      */
-    public static function intTo62($n)
+    public static function intTo62(int $n): int|string
     {
         if (strval($n) > strval(PHP_INT_MAX)) {
             return -1;
@@ -161,9 +159,8 @@ class StringHelper
      * @param int $num 待转换数字 大于0
      * @return int|string
      */
-    public static function intTo36Hex($num)
+    public static function intTo36Hex(int $num): int|string
     {
-        $num = intval($num);
         if ($num <= 0)
             return 0;
         $char = '';
@@ -182,7 +179,7 @@ class StringHelper
      * @param $c36
      * @return float|int
      */
-    public static function char36ToInt($c36)
+    public static function char36ToInt($c36): float|int
     {
         $len = strlen($c36);
         if ($len > 10) return -1;
@@ -207,27 +204,29 @@ class StringHelper
      * @param $str
      * @return string
      */
-    public static function utf8ToGbk($str)
+    public static function utf8ToGbk($str): string
     {
         return iconv('utf-8', 'gbk', $str);
     }
 
     /**
-     * 返回uniqid的md5值
+     * 返回 uniqueId 的md5值
+     * @param string $prefix
+     * @param bool $more_entropy
      * @return string
      */
-    public static function md5UniqueId()
+    public static function md5UniqueId(string $prefix = "", bool $more_entropy = false): string
     {
-        return md5(uniqid());
+        return md5(uniqid($prefix, $more_entropy));
     }
 
     /**
      * 生成随机字符
-     * @param string $type 该帮助类 ALPHABET|ALPHABET_AND_NUMBERS|NUMBERS
+     * @param int $type 该帮助类 ALPHABET|ALPHABET_AND_NUMBERS|NUMBERS
      * @param int $length
      * @return int|string
      */
-    public static function randStr($type, $length = 6)
+    public static function randStr(int $type, int $length = 6): int|string
     {
         // TODO 生成随机长度的字符串
         if ($type == self::ALPHABET) {
@@ -246,7 +245,7 @@ class StringHelper
      * @param $length
      * @return string
      */
-    public static function randAlphabet($length)
+    public static function randAlphabet($length): string
     {
         if ($length < 0) $length = 1;
         if ($length > 64) $length = 64;
@@ -264,7 +263,7 @@ class StringHelper
      * @param $length
      * @return string
      */
-    public static function randAlphabetAndNumbers($length)
+    public static function randAlphabetAndNumbers($length): string
     {
         if ($length < 0) $length = 1;
         if ($length > 64) $length = 64;
@@ -280,7 +279,7 @@ class StringHelper
      * @param int $length
      * @return int
      */
-    public static function randNumbers($length = 6)
+    public static function randNumbers($length = 6): int
     {
         if ($length < 0) $length = 1;
         if ($length > 8) $length = 8;
@@ -295,7 +294,7 @@ class StringHelper
      * @param $str
      * @return string
      */
-    public static function toCamelCase($str)
+    public static function toCamelCase($str): string
     {
         $str = ucwords(str_replace('_', ' ', $str));
         $str = str_replace(' ', '', lcfirst($str));
@@ -310,7 +309,7 @@ class StringHelper
      * @return mixed|string
      * @internal param $str
      */
-    public static function camelCaseToUnderline($camelCaseStr, $separator = '_')
+    public static function camelCaseToUnderline($camelCaseStr, string $separator = '_'): mixed
     {
         $temp_array = array();
         for ($i = 0; $i < strlen($camelCaseStr); $i++) {
@@ -331,7 +330,7 @@ class StringHelper
      * @param null $limit
      * @return array
      */
-    public static function explode($delimiter, $string, $limit = null)
+    public static function explode($delimiter, $string, $limit = null): array
     {
         if (empty($string)) return [];
         return explode($delimiter, $string, $limit);
@@ -348,7 +347,7 @@ class StringHelper
      * @param string $replaceChar 默认*
      * @return string
      */
-    public static function hideSensitive($str, $firstLen = 3, $lastLen = 4, $replaceCount = 4, $replaceChar = '*')
+    public static function hideSensitive(string $str, int $firstLen = 3, int $lastLen = 4, int $replaceCount = 4, string $replaceChar = '*'): string
     {
         if (strlen($str) > $firstLen + $lastLen) {
             return substr($str, 0, $firstLen) . str_repeat($replaceChar, $replaceCount) . substr($str, -$lastLen);
@@ -365,7 +364,7 @@ class StringHelper
      * @param string $thousands_sep 每隔3位数符号，原生是 , 符号，这边默认 无
      * @return string 保留小数点后的数字
      */
-    public static function numberFormat($number, $decimal = 2, $dec_point = ".", $thousands_sep = "")
+    public static function numberFormat(float $number, int $decimal = 2, string $dec_point = ".", string $thousands_sep = ""): string
     {
         return number_format($number, $decimal, $dec_point, $thousands_sep);
     }
@@ -377,7 +376,7 @@ class StringHelper
      * @param array $extraChar
      * @return mixed
      */
-    public static function filterPunctuation($str, $replace = '', $extraChar = [])
+    public static function filterPunctuation($str, string $replace = '', array $extraChar = []): mixed
     {
         $default = array('）','（','￥','¥', ' ', '｛', '-', '—', '【', '】', '《', '》', '｝', '', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*',
             '+', ', ', '-', '.', '/', ':', ';', '<', '=', '>',
@@ -393,13 +392,28 @@ class StringHelper
             $str);
     }
 
-    public static function generateSessionKey($key, $uid, $expire = 8 * 3600) {
+    /**
+     * 生成sessionKey 并 des-ecb 加密
+     * @param $key
+     * @param $uid
+     * @param float|int $expire
+     * @return bool|string
+     */
+    public static function generateSessionKey($key, $uid, $expire = 8 * 3600): bool|string
+    {
         $rand = str_pad(strval(rand(0, 1000000)), "7", "0", STR_PAD_LEFT);
         $origin = 'R'.$rand.'U'.$uid.'T'.(time() + $expire);
         return openssl_encrypt($origin, "des-ecb", $key);
     }
 
-    public static function isValidSessionKey($content, $uid, $key) {
+    /**
+     * @param $content
+     * @param $uid
+     * @param $key
+     * @return int
+     */
+    public static function isValidSessionKey($content, $uid, $key): int
+    {
         $des = trim(openssl_decrypt($content, "des-ecb", $key));
         $timePos = strpos($des, "T");
         if ($timePos === -1) return -1;

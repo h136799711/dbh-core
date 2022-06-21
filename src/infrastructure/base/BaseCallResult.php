@@ -20,52 +20,45 @@ namespace by\infrastructure\base;
 abstract class BaseCallResult
 {
 
-    // member function
-    private $code;
+    private string|int $code;
+    private string $msg;// 返回的结果码
+    private mixed $data;//  返回消息
 
-    // override function __toString()
-
-    // member variables
-    private $msg;// 返回的结果码
-    private $data;//  返回消息
-
-    public function __construct($data = '', $msg = '', $code = 0)
+    public function __construct(mixed $data = '', string $msg = '', string|int $code = 0)
     {
-        $this->setCode($code);
-        $this->setMsg($msg);
-        $this->setData($data);
-    }// 返回数据
-
-    // getter setter
+        $this->code = $code;
+        $this->data = $data;
+        $this->msg = $msg;
+    }
 
     /**
-     * @return mixed
+     * @return int|string
      */
-    public function getCode()
+    public function getCode(): int|string
     {
         return $this->code;
     }
 
     /**
-     * @param mixed $code
+     * @param int|string $code
      */
-    public function setCode($code)
+    public function setCode(int|string $code): void
     {
         $this->code = $code;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getMsg()
+    public function getMsg(): string
     {
         return $this->msg;
     }
 
     /**
-     * @param mixed $msg
+     * @param string $msg
      */
-    public function setMsg($msg)
+    public function setMsg(string $msg): void
     {
         $this->msg = $msg;
     }
@@ -73,7 +66,7 @@ abstract class BaseCallResult
     /**
      * @return mixed
      */
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
@@ -81,9 +74,8 @@ abstract class BaseCallResult
     /**
      * @param mixed $data
      */
-    public function setData($data)
+    public function setData(mixed $data): void
     {
         $this->data = $data;
     }
-
 }

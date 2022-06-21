@@ -48,16 +48,11 @@ class DocParserHelperTest extends TestCase
 
 //        exit;
 
-        // 下划线优先
-        $result = ReflectionHelper::invokeWithArgs($this, 'add', ['demo_test' => '1']);
-
-        $this->assertEquals(false, $result->isSuccess());
-
-        $result = ReflectionHelper::invokeWithArgs($this, 'add', ['demo' => '124444', 'reg_from', 'demoTest' => 12345678901, 'demo_test' => 12345678901]);
-
+        $result = ReflectionHelper::invokeWithArgs($this, 'add', ['demo' => '124444', 'reg_from'=>1, 'demoTest' => 12345678901, 'demo_test' => 12345671]);
+        var_dump($result);
         $this->assertEquals(true, $result->isSuccess(), $result->getMsg());
         $data = $result->getData();
-        $this->assertEquals(2, $data['demoTest']);
+        $this->assertEquals(12345671, $data['demoTest']);
     }
 
     /**
@@ -67,13 +62,15 @@ class DocParserHelperTest extends TestCase
      * @demo_match_regex reg:/^\w{3,6}$/i msg:the value length must in 3-6
      * @demo_required demo is required
      * @demo_test_required param demo_test is required
+     * @param string $msg
      * @param string $demo
      * @param string $demoTest
+     * @param string $regFrom
      * @return \by\infrastructure\base\CallResult
      */
-    public function add($demo = '', $demoTest = '', $regFrom = '')
+    public function add(string $msg = '',string $demo = '', string $demoTest = '', string $regFrom = ''): \by\infrastructure\base\CallResult
     {
-        return CallResultHelper::success(['demo' => $demo, 'demoTest' => $demoTest]);
+        return CallResultHelper::success(['demo' => $demo, 'demoTest' => $demoTest], $msg);
     }
 
 }

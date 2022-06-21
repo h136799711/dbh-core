@@ -38,17 +38,13 @@ class StatusEnum
      */
     const DISABLED = 0;
 
-    public static function getDesc($status)
+    public static function getDesc($status): string
     {
-        switch ($status) {
-            case StatusEnum::DISABLED:
-                return "已禁用";
-            case StatusEnum::ENABLE:
-                return "启用";
-            case StatusEnum::SOFT_DELETE:
-                return "已删除";
-            default:
-                return "未知";
-        }
+        return match ($status) {
+            StatusEnum::DISABLED => "已禁用",
+            StatusEnum::ENABLE => "启用",
+            StatusEnum::SOFT_DELETE => "已删除",
+            default => "未知",
+        };
     }
 }

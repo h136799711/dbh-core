@@ -39,9 +39,8 @@ class ReflectionHelper
      * @param string $methodName 方法名
      * @param array $data 传入参数值数据
      * @return \by\infrastructure\base\CallResult
-     * @throws \ReflectionException
      */
-    public static function invokeWithArgs($object, $methodName = 'index', $data = [])
+    public static function invokeWithArgs(object $object, string $methodName = 'index', array $data = []): \by\infrastructure\base\CallResult
     {
         $ref = new \ReflectionClass($object);
         try {
@@ -56,12 +55,12 @@ class ReflectionHelper
             foreach ($params as $vo) {
                 if ($vo instanceof \ReflectionParameter) {
                     $paramName = $vo->getName();
-                    $cls = $vo->getClass();
-                    $defaultValue = $vo->isDefaultValueAvailable() ? $vo->getDefaultValue() : null;
+                    $cls = $vo->getType();
 
+                    $defaultValue = $vo->isDefaultValueAvailable() ? $vo->getDefaultValue() : null;
                     $underLineParamName = StringHelper::camelCaseToUnderline($paramName);
 
-                    if ($cls) {
+                    if (($cls instanceof \ReflectionNamedType || $cls instanceof \ReflectionUnionType) && !$cls->isBuiltin()) {
                         $clsName = $cls->getName();
                         $value = new $clsName;
                         Object2DataArrayHelper::setData($value, $data);
@@ -87,14 +86,14 @@ class ReflectionHelper
                         if (is_array($regex)) {
                             foreach ($regex as $item) {
                                 $item = trim($item);
-                                list($reg, $msg) = self::splitRegex($item);
+                                [$reg, $msg] = self::splitRegex($item);
                                 if (!preg_match($reg, $value)) {
                                     return CallResultHelper::fail(LangHelper::lang($msg));
                                 }
                             }
                         } else {
                             $regex = trim($regex);
-                            list($reg, $msg) = self::splitRegex($regex);
+                            [$reg, $msg] = self::splitRegex($regex);
                             if (!preg_match($reg, $value)) {
                                 return CallResultHelper::fail(LangHelper::lang($msg));
                             }

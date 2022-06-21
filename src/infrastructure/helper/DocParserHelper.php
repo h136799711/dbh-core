@@ -32,14 +32,14 @@ namespace by\infrastructure\helper;
 class DocParserHelper
 {
 
-    private static $params = array();
+    private static array $params = array();
 
     public static function clear()
     {
         self::$params = [];
     }
 
-    public static function parse($doc = '')
+    public static function parse($doc = ''): array
     {
         if ($doc == '') {
             return self::$params;
@@ -77,7 +77,7 @@ class DocParserHelper
             self::$params ['long_description'] = $desc;
     }
 
-    private static function parseLine($line)
+    private static function parseLine($line): bool|string
     {
         // trim the whitespace from the line
         $line = trim($line);
@@ -85,7 +85,7 @@ class DocParserHelper
         if (empty ($line))
             return false; // Empty line
 
-        if (strpos($line, '@') === 0) {
+        if (str_starts_with($line, '@')) {
             if (strpos($line, ' ') > 0) {
                 // Get the parameter name
                 $param = substr($line, 1, strpos($line, ' ') - 1);
@@ -102,12 +102,12 @@ class DocParserHelper
         return $line;
     }
 
-    private static function setParam($param, $value)
+    private static function setParam($param, $value): bool
     {
         if ($param == 'param' || $param == 'return')
             $value = self::formatParamOrReturn($value);
         if ($param == 'class')
-            list ($param, $value) = self::formatClass($value);
+            [$param, $value] = self::formatClass($value);
 
         if (empty (self::$params [$param])) {
             self::$params [$param] = $value;
@@ -127,7 +127,7 @@ class DocParserHelper
         return true;
     }
 
-    private static function formatParamOrReturn($string)
+    private static function formatParamOrReturn($string): string
     {
         $pos = strpos($string, ' ');
 
@@ -135,7 +135,7 @@ class DocParserHelper
         return '(' . $type . ')' . substr($string, $pos + 1);
     }
 
-    private static function formatClass($value)
+    private static function formatClass($value): array
     {
         $r = preg_split("[\(|\)]", $value);
         if (is_array($r)) {

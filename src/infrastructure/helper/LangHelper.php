@@ -31,7 +31,7 @@ class LangHelper
      * @param string $lang
      * @return mixed
      */
-    public static function lang($name, $vars = [], $lang = '')
+    public static function lang($name, array $vars = [], string $lang = ''): mixed
     {
         if (function_exists('lang')) {
             return lang($name, $vars, $lang);

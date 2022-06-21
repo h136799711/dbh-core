@@ -12,6 +12,9 @@ namespace by\component\helper;
 use by\infrastructure\base\CallResult;
 use by\infrastructure\helper\CallResultHelper;
 
+/**
+ * 校验辅助
+ */
 class ValidateHelper
 {
 
@@ -20,7 +23,7 @@ class ValidateHelper
      * @param $digit
      * @return bool
      */
-    public static function isZeroOrOne($digit)
+    public static function isZeroOrOne($digit): bool
     {
         if (strlen($digit) > 0) {
             $digit = intval($digit);
@@ -34,7 +37,7 @@ class ValidateHelper
      * @param $str
      * @return bool
      */
-    public static function isNumberStr($str)
+    public static function isNumberStr($str): bool
     {
         return !is_resource($str) && !is_array($str) && !is_object($str) && (is_int($str) || is_numeric($str) || preg_match('/^\d*$/', $str));
     }
@@ -45,7 +48,7 @@ class ValidateHelper
      * @param $password
      * @return CallResult
      */
-    public static function legalPwd($password)
+    public static function legalPwd($password): CallResult
     {
         if (strlen($password) < 6 || strlen($password) > 64) {
             return CallResultHelper::fail('password length must between 6-64');
@@ -62,7 +65,7 @@ class ValidateHelper
      * @param $str
      * @return bool
      */
-    public static function isMobile($str)
+    public static function isMobile($str): bool
     {
         if (is_string($str) && preg_match("/^1\d{10}$/", $str)) {
             return true;
@@ -80,11 +83,11 @@ class ValidateHelper
 
     /**
      * 验证是否合法的结果,含数组
-     * @author peter<chendaguo@mail.com>
      * @param $result array
      * @return bool
+     *@author peter<chendaguo@mail.com>
      */
-    public static function legalArrayResult($result)
+    public static function legalArrayResult(array $result): bool
     {
 
         if (isset($result['info']) && isset($result['status']) && $result['status'] && is_array($result['info']) && count($result['info']) > 0) {
@@ -100,7 +103,7 @@ class ValidateHelper
      * @param $email
      * @return bool
      */
-    public static function isEmail($email)
+    public static function isEmail($email): bool
     {
         $pattern = "/^[A-Za-z0-9\\x{4e00}-\\x{9fa5}]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$/iu";
         if (is_string($email) && preg_match($pattern, $email)) {

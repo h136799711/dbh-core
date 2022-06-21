@@ -4,6 +4,9 @@
 namespace by\infrastructure\helper;
 
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 class TimeHelper
 {
     const ShowAll = 31;
@@ -18,7 +21,7 @@ class TimeHelper
 
     const ShowYear = 16;
 
-    public static function formatString($seconds, $show = self::ShowAll, $lang = 'zh')
+    public static function formatString($seconds, $show = self::ShowAll, $lang = 'zh'): string
     {
         $format = self::format($seconds, $show);
         $str = '';
@@ -68,7 +71,12 @@ class TimeHelper
         }
     }
 
-    public static function format($seconds, $show = self::ShowAll)
+    #[ArrayShape(['sec'  => "int",
+                  'min'  => "int",
+                  'hour' => "int",
+                  'day'  => "int",
+                  'year' => "float|int"
+    ])] public static function format($seconds, $show = self::ShowAll): array
     {
         $format = ['sec' => 0, 'min' => 0, 'hour' => 0, 'day' => 0, 'year' => 0];
 
@@ -99,17 +107,18 @@ class TimeHelper
      * 今日0点时间戳
      * @return false|int
      */
-    public static function todayTime() {
-        $todayTime = strtotime(date("Y-m-d 0:0:0"));
-        return $todayTime;
+    public static function todayTime(): bool|int
+    {
+        return strtotime(date("Y-m-d 0:0:0"));
     }
 
     /**
      * 今天 0点的 日期格式
      * @param string $format 日期格式默认 Ymd
-     * @return false|string
+     * @return bool|string
      */
-    public static function today($format = 'Ymd') {
+    #[Pure] public static function today(string $format = 'Ymd'): bool|string
+    {
         return date($format, self::todayTime());
     }
 
@@ -117,7 +126,8 @@ class TimeHelper
      * 本月1日0点时间戳
      * @return false|int
      */
-    public static function thisMonthZeroHour() {
+    public static function thisMonthZeroHour(): bool|int
+    {
         return strtotime(date("Y-m-01 0:0:0"));
     }
 }

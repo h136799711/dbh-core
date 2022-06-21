@@ -31,7 +31,7 @@ abstract class BaseJsonObject extends BaseObject implements ToJsonStringInterfac
 
     // override function __toString()
 
-    function toJsonString()
+    function toJsonString(): bool|string
     {
         $data = Object2DataArrayHelper::getDataArrayFrom($this);
         // 注意中文编码后问题

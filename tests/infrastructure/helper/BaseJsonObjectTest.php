@@ -43,279 +43,22 @@ class BaseJsonObjectTest extends TestCase
     private $null;
     /**
      * test
-     * @var  \byTest\infrastructure\helper\TestEntity
+     * @var  ?\byTest\infrastructure\helper\TestEntity
      */
-    private $entity;
+    private ?TestEntity $entity = null;
     /**
      * test
-     * @var  \byTest\infrastructure\helper\TestEntity
+     * @var  ?\byTest\infrastructure\helper\TestEntity
      */
-    private $entity2;
+    private ?TestEntity $entity2 = null;
     /**
      * test
-     * @var  \byTest\infrastructure\helper\TestEntity
+     * @var  ?\byTest\infrastructure\helper\TestEntity
      */
-    private $entity3;
+    private ?TestEntity $entity3 = null;
 
-    /**
-     * @return mixed
-     */
-    public function getId15()
-    {
-        return $this->id15;
-    }
 
-    /**
-     * @param mixed $id15
-     */
-    public function setId15($id15)
-    {
-        $this->id15 = $id15;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getId2()
-    {
-        return $this->id2;
-    }
-
-    /**
-     * @param mixed $id2
-     */
-    public function setId2($id2)
-    {
-        $this->id2 = $id2;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId3()
-    {
-        return $this->id3;
-    }
-
-    /**
-     * @param mixed $id3
-     */
-    public function setId3($id3)
-    {
-        $this->id3 = $id3;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId4()
-    {
-        return $this->id4;
-    }
-
-    /**
-     * @param mixed $id4
-     */
-    public function setId4($id4)
-    {
-        $this->id4 = $id4;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId5()
-    {
-        return $this->id5;
-    }
-
-    /**
-     * @param mixed $id5
-     */
-    public function setId5($id5)
-    {
-        $this->id5 = $id5;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId6()
-    {
-        return $this->id6;
-    }
-
-    /**
-     * @param mixed $id6
-     */
-    public function setId6($id6)
-    {
-        $this->id6 = $id6;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId7()
-    {
-        return $this->id7;
-    }
-
-    /**
-     * @param mixed $id7
-     */
-    public function setId7($id7)
-    {
-        $this->id7 = $id7;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId8()
-    {
-        return $this->id8;
-    }
-
-    /**
-     * @param mixed $id8
-     */
-    public function setId8($id8)
-    {
-        $this->id8 = $id8;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId9()
-    {
-        return $this->id9;
-    }
-
-    /**
-     * @param mixed $id9
-     */
-    public function setId9($id9)
-    {
-        $this->id9 = $id9;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId10()
-    {
-        return $this->id10;
-    }
-
-    /**
-     * @param mixed $id10
-     */
-    public function setId10($id10)
-    {
-        $this->id10 = $id10;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId11()
-    {
-        return $this->id11;
-    }
-
-    /**
-     * @param mixed $id11
-     */
-    public function setId11($id11)
-    {
-        $this->id11 = $id11;
-    }
-
-    // override function __toString()
-
-    // member variables
-
-    /**
-     * @return mixed
-     */
-    public function getId12()
-    {
-        return $this->id12;
-    }
-
-    /**
-     * @param mixed $id12
-     */
-    public function setId12($id12)
-    {
-        $this->id12 = $id12;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId13()
-    {
-        return $this->id13;
-    }
-
-    /**
-     * @param mixed $id13
-     */
-    public function setId13($id13)
-    {
-        $this->id13 = $id13;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId14()
-    {
-        return $this->id14;
-    }
-
-    /**
-     * @param mixed $id14
-     */
-    public function setId14($id14)
-    {
-        $this->id14 = $id14;
-    }
-
-    /**
-     * @return TestEntity
-     */
-    public function getEntity2()
-    {
-        return $this->entity2;
-    }
-
-    /**
-     * @param TestEntity $entity2
-     */
-    public function setEntity2($entity2)
-    {
-        $this->entity2 = $entity2;
-    }
-
-    /**
-     * @return TestEntity
-     */
-    public function getEntity3()
-    {
-        return $this->entity3;
-    }
-
-    /**
-     * @param TestEntity $entity3
-     */
-    public function setEntity3($entity3)
-    {
-        $this->entity3 = $entity3;
-    }
 
 
     /**
@@ -326,8 +69,10 @@ class BaseJsonObjectTest extends TestCase
      */
     public function testJsonObject()
     {
-        return;
+//        return;
         $test = new BaseJsonObjectTest();
+//        var_dump(Object2DataArrayHelper::getDataArrayFrom($test));
+//        exit;
         Object2DataArrayHelper::setData($test, ['id' => '11', 'to_lower' => 'lower', 'to_upper' => 'upper', 'null' => null, 'name' => 'set test entity']);
         var_dump($test->getEntity());
         $array = Object2DataArrayHelper::getDataArrayFrom($test, ['id', 'to_upper']);
@@ -356,21 +101,7 @@ class BaseJsonObjectTest extends TestCase
         $this->assertArrayNotHasKey('toUpper', $array);
     }
 
-    /**
-     * @return TestEntity
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
 
-    /**
-     * @param TestEntity $entity
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-    }
 
     public function testMountJsonObject()
     {
@@ -438,22 +169,6 @@ class BaseJsonObjectTest extends TestCase
     /**
      * @return mixed
      */
-    public function getNull()
-    {
-        return $this->null;
-    }
-
-    /**
-     * @param mixed $null
-     */
-    public function setNull($null)
-    {
-        $this->null = $null;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
@@ -462,9 +177,233 @@ class BaseJsonObjectTest extends TestCase
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId2()
+    {
+        return $this->id2;
+    }
+
+    /**
+     * @param mixed $id2
+     */
+    public function setId2($id2): void
+    {
+        $this->id2 = $id2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId3()
+    {
+        return $this->id3;
+    }
+
+    /**
+     * @param mixed $id3
+     */
+    public function setId3($id3): void
+    {
+        $this->id3 = $id3;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId4()
+    {
+        return $this->id4;
+    }
+
+    /**
+     * @param mixed $id4
+     */
+    public function setId4($id4): void
+    {
+        $this->id4 = $id4;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId5()
+    {
+        return $this->id5;
+    }
+
+    /**
+     * @param mixed $id5
+     */
+    public function setId5($id5): void
+    {
+        $this->id5 = $id5;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId6()
+    {
+        return $this->id6;
+    }
+
+    /**
+     * @param mixed $id6
+     */
+    public function setId6($id6): void
+    {
+        $this->id6 = $id6;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId7()
+    {
+        return $this->id7;
+    }
+
+    /**
+     * @param mixed $id7
+     */
+    public function setId7($id7): void
+    {
+        $this->id7 = $id7;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId8()
+    {
+        return $this->id8;
+    }
+
+    /**
+     * @param mixed $id8
+     */
+    public function setId8($id8): void
+    {
+        $this->id8 = $id8;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId9()
+    {
+        return $this->id9;
+    }
+
+    /**
+     * @param mixed $id9
+     */
+    public function setId9($id9): void
+    {
+        $this->id9 = $id9;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId10()
+    {
+        return $this->id10;
+    }
+
+    /**
+     * @param mixed $id10
+     */
+    public function setId10($id10): void
+    {
+        $this->id10 = $id10;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId11()
+    {
+        return $this->id11;
+    }
+
+    /**
+     * @param mixed $id11
+     */
+    public function setId11($id11): void
+    {
+        $this->id11 = $id11;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId12()
+    {
+        return $this->id12;
+    }
+
+    /**
+     * @param mixed $id12
+     */
+    public function setId12($id12): void
+    {
+        $this->id12 = $id12;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId13()
+    {
+        return $this->id13;
+    }
+
+    /**
+     * @param mixed $id13
+     */
+    public function setId13($id13): void
+    {
+        $this->id13 = $id13;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId14()
+    {
+        return $this->id14;
+    }
+
+    /**
+     * @param mixed $id14
+     */
+    public function setId14($id14): void
+    {
+        $this->id14 = $id14;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId15()
+    {
+        return $this->id15;
+    }
+
+    /**
+     * @param mixed $id15
+     */
+    public function setId15($id15): void
+    {
+        $this->id15 = $id15;
     }
 
     /**
@@ -478,7 +417,7 @@ class BaseJsonObjectTest extends TestCase
     /**
      * @param mixed $toUpper
      */
-    public function setToUpper($toUpper)
+    public function setToUpper($toUpper): void
     {
         $this->toUpper = $toUpper;
     }
@@ -494,10 +433,73 @@ class BaseJsonObjectTest extends TestCase
     /**
      * @param mixed $toLower
      */
-    public function setToLower($toLower)
+    public function setToLower($toLower): void
     {
         $this->toLower = $toLower;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNull()
+    {
+        return $this->null;
+    }
+
+    /**
+     * @param mixed $null
+     */
+    public function setNull($null): void
+    {
+        $this->null = $null;
+    }
+
+    /**
+     * @return ?TestEntity
+     */
+    public function getEntity(): ?TestEntity
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param TestEntity $entity
+     */
+    public function setEntity(TestEntity $entity): void
+    {
+        $this->entity = $entity;
+    }
+
+    /**
+     * @return ?TestEntity
+     */
+    public function getEntity2(): ?TestEntity
+    {
+        return $this->entity2;
+    }
+
+    /**
+     * @param TestEntity $entity2
+     */
+    public function setEntity2(TestEntity $entity2): void
+    {
+        $this->entity2 = $entity2;
+    }
+
+    /**
+     * @return ?TestEntity
+     */
+    public function getEntity3(): ?TestEntity
+    {
+        return $this->entity3;
+    }
+
+    /**
+     * @param TestEntity $entity3
+     */
+    public function setEntity3(TestEntity $entity3): void
+    {
+        $this->entity3 = $entity3;
+    }
 
 }

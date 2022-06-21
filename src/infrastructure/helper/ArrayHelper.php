@@ -23,11 +23,14 @@ namespace by\infrastructure\helper;
  */
 class ArrayHelper
 {
-    private static $instance;
-    private $defaultValue = '';
-    private $data;
+    private static ?ArrayHelper $instance = null;
+    private string $defaultValue = '';
+    private mixed $data;
 
-    public static function getInstance()
+    /**
+     * @return ArrayHelper
+     */
+    public static function getInstance(): ArrayHelper
     {
         if (self::$instance == null) {
             self::$instance = new ArrayHelper();
@@ -40,7 +43,7 @@ class ArrayHelper
      * @param array $array 原数组
      * @param array $keys 需要过滤掉的键
      */
-    public static function filter(&$array, $keys = [])
+    public static function filter(array &$array, array $keys = [])
     {
         array_walk($keys, function ($vo) use (&$array) {
             unset($array[$vo]);
@@ -50,16 +53,12 @@ class ArrayHelper
     /**
      * 从$_POST获取数据来设置到指定参数
      * @param $param
-     * @param string $defaultValue
+     * @param mixed $defaultValue
      * @param null $scope
      */
-    public static function setValueFromPost(&$param, $defaultValue = '', $scope = null)
+    public static function setValueFromPost(&$param, mixed $defaultValue = '', $scope = null)
     {
-        if (isset($_POST)) {
-            $array = $_POST;
-        } else {
-            $array = [];
-        }
+        $array = $_POST ?? [];
         self::setValue($param, $array, $defaultValue, $scope);
     }
 
@@ -77,10 +76,10 @@ class ArrayHelper
      * self::setValue($username, $array, 'default_value', get_defined_vars())
      * @param $param
      * @param $array
-     * @param string $defaultValue
+     * @param mixed $defaultValue
      * @param null $scope
      */
-    public static function setValue(&$param, $array, $defaultValue = '', $scope = null)
+    public static function setValue(&$param, $array, mixed $defaultValue = '', $scope = null)
     {
         if (NULL == $scope) {
             $scope = $GLOBALS;
@@ -94,10 +93,10 @@ class ArrayHelper
      * 从数组中根据key获取值，如果没有这个key，则返回默认值
      * @param string $key 数组键
      * @param array $array 数组
-     * @param string $defaultValue 默认值
+     * @param mixed|null $defaultValue 默认值
      * @return string 值
      */
-    public static function getValue($key, $array, $defaultValue = '')
+    public static function getValue(string $key, array $array, mixed $defaultValue = '')
     {
         if (array_key_exists($key, $array)) {
             return $array[$key];
@@ -105,7 +104,7 @@ class ArrayHelper
         return $defaultValue;
     }
 
-    public static function get_variable_name(&$var, $scope = NULL)
+    public static function get_variable_name(&$var, $scope = NULL): bool|int|string
     {
         if (NULL == $scope) {
             $scope = $GLOBALS;
@@ -125,7 +124,7 @@ class ArrayHelper
      * @param object $value 变量
      * @return mixed 赋值后的变量
      */
-    public static function getValueTo($key, $array, &$value)
+    public static function getValueTo(string $key, array $array, object &$value): mixed
     {
         if (array_key_exists($key, $array)) {
             $value = $array[$key];
@@ -137,7 +136,7 @@ class ArrayHelper
      * @param $data
      * @return ArrayHelper
      */
-    public function from($data)
+    public function from($data): ArrayHelper
     {
         $this->data = $data;
         return $this;

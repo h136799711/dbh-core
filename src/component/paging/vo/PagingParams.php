@@ -18,17 +18,19 @@ namespace by\component\paging\vo;
 
 
 use by\infrastructure\base\BaseObject;
+use by\infrastructure\helper\ByCalcHelper;
 use by\infrastructure\helper\Object2DataArrayHelper;
 use by\infrastructure\interfaces\ObjectToArrayInterface;
+use JetBrains\PhpStorm\Pure;
 
 class PagingParams extends BaseObject implements ObjectToArrayInterface
 {
 
-    private $pageIndex;
-    private $pageSize;
+    private int $pageIndex;
+    private int $pageSize;
 
     // construct
-    public function __construct($pageIndex = 0, $pageSize = 10)
+    public function __construct(int $pageIndex = 0,int $pageSize = 10)
     {
         parent::__construct();
         $this->setPageIndex($pageIndex);
@@ -37,9 +39,10 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
 
     /**
      * 偏移量 如果pageIndex是1 则返回0，2 则是 pageSize ,3则是 2*pageSize
-     * @return float|int
+     * @return int
      */
-    public function offset()
+    #[Pure]
+    public function offset(): int
     {
         $pageIndex = $this->getPageIndex() - 1;
         $pageIndex = $pageIndex < 0 ? 0 : $pageIndex;
@@ -47,36 +50,36 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getPageIndex()
+    public function getPageIndex(): int
     {
         return $this->pageIndex;
     }
 
     /**
      * 保证大于等于0
-     * @param mixed $pageIndex
+     * @param int $pageIndex
      */
-    public function setPageIndex($pageIndex)
+    public function setPageIndex(int $pageIndex)
     {
         // 保证大于等于0
-        $this->pageIndex = ($pageIndex < 0 ? 0 : $pageIndex);
+        $this->pageIndex = ByCalcHelper::getZeroIfNegative($pageIndex);
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getPageSize()
+    public function getPageSize(): int
     {
         return $this->pageSize;
     }
 
     /**
      * 值 大于 1
-     * @param mixed $pageSize
+     * @param int $pageSize
      */
-    public function setPageSize($pageSize)
+    public function setPageSize(int $pageSize)
     {
         // 保证大于等于1
         $this->pageSize = ($pageSize < 1 ? 1 : $pageSize);
@@ -86,7 +89,7 @@ class PagingParams extends BaseObject implements ObjectToArrayInterface
      * @return array
      * @throws \ReflectionException
      */
-    public function toArray()
+    public function toArray(): array
     {
         return Object2DataArrayHelper::getDataArrayFrom($this);
     }

@@ -24,5 +24,5 @@ interface CheckInterfaces
     /**
      * @return CallResult
      */
-    function check();
+    function check(): CallResult;
 }

@@ -6964,7 +6964,7 @@ class ByPinyinHelper
      * @param string $encoding
      * @return string
      */
-    public static function getPinyin($string, $encoding = 'utf-8')
+    public static function getPinyin($string, string $encoding = 'utf-8'): string
     {
         if ($string != self::$string || $encoding != self::$encoding) {
             self::chineseToPinyin($string, $encoding);
@@ -6985,11 +6985,7 @@ class ByPinyinHelper
         self::$pinyin       = '';
         self::$short_pinyin = '';
         foreach ($words as $v) {
-            if (isset(self::$dic[$v])) {
-                $tmp = self::$dic[$v];
-            } else {
-                $tmp = $v;
-            }
+            $tmp = self::$dic[$v] ?? $v;
             self::$pinyin .= $tmp;
             self::$short_pinyin .= mb_substr($tmp, 0, 1, $encoding);
         }
@@ -7000,7 +6996,7 @@ class ByPinyinHelper
      * @param $string
      * @return array
      */
-    private static function mbStringToArray($string)
+    private static function mbStringToArray($string): array
     {
         $stop   = mb_strlen($string, 'utf-8');
         $result = array();
@@ -7018,7 +7014,7 @@ class ByPinyinHelper
      * @param string $encoding
      * @return string
      */
-    public static function getShortPinyin($string, $encoding = 'utf-8')
+    public static function getShortPinyin($string, string $encoding = 'utf-8'): string
     {
         if ($string != self::$string || $encoding != self::$encoding) {
             self::chineseToPinyin($string, $encoding);

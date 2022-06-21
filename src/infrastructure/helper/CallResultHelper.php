@@ -26,32 +26,19 @@ use by\infrastructure\base\CallResult;
 class CallResultHelper
 {
 
-    // member function
-
     public function __construct()
     {
-        // TODO construct
     }
 
-    public static function success($data = '', $msg = 'success', $code = 0)
+    public static function success($data = '', $msg = 'success', $code = 0): CallResult
     {
         if ($msg === 'success') $msg = LangHelper::lang($msg);
-
         return new CallResult($data, $msg, $code);
     }
 
-    // construct
-
-    public static function fail($msg = 'fail', $data = '', $code = -1)
+    public static function fail($msg = 'fail', $data = '', $code = -1): CallResult
     {
         if ($msg === 'fail') $msg = LangHelper::lang($msg);
         return new CallResult($data, $msg, $code);
     }
-
-    // override function __toString()
-
-    // member variables
-
-    // getter setter
-
 }

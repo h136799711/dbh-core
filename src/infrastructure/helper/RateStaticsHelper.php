@@ -12,9 +12,9 @@ namespace by\infrastructure\helper;
 class RateStaticsHelper
 {
 
-    public $seconds = 31;
-    public $passedSecondsRate = [];// $seconds - 1秒内接收到的消息数量
-    public $avgRate = 0; // $seconds - 1秒内的平均消息数量
+    public int $seconds = 31;
+    public array $passedSecondsRate = [];// $seconds - 1秒内接收到的消息数量
+    public int $avgRate = 0; // $seconds - 1秒内的平均消息数量
 
     public function record($now, $count = 1)
     {

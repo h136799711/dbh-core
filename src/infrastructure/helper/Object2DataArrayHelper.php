@@ -22,15 +22,9 @@ use by\infrastructure\interfaces\ObjectToArrayInterface;
 
 class Object2DataArrayHelper
 {
-    public static $cacheReflectionCls = [];
-    public static $cacheEntityProperty = [];
-    public static $cacheClassProperty = [];
-
-    // member function
-    public function __construct()
-    {
-        // TODO construct
-    }
+    public static array $cacheReflectionCls = [];
+    public static array $cacheEntityProperty = [];
+    public static array $cacheClassProperty = [];
 
     /**
      * 将对象实例的get函数返回的数据封装为数组,键都是小写字母加下划线形式
@@ -41,7 +35,7 @@ class Object2DataArrayHelper
      * @return array
      * @throws \ReflectionException
      */
-    public static function getDataArrayFrom($instance, $properties = [], $ignoreNull = true)
+    public static function getDataArrayFrom(object $instance, array $properties = [], bool $ignoreNull = true): array
     {
         $clsName = get_class($instance);
         $ref = self::getReflectionCls($clsName);
@@ -83,10 +77,9 @@ class Object2DataArrayHelper
      * @return \ReflectionClass
      * @throws \ReflectionException
      */
-    private static function getReflectionCls($clsName)
+    private static function getReflectionCls($clsName): \ReflectionClass
     {
-        $key = str_replace("\\", '_', $clsName);
-//        $key = md5($clsName);
+        $key = md5(str_replace("\\", '_', $clsName));
         if (!array_key_exists($key, self::$cacheReflectionCls)) {
             self::$cacheReflectionCls[$key] = new \ReflectionClass($clsName);
         }
@@ -102,14 +95,13 @@ class Object2DataArrayHelper
             while (($refCls = $refCls->getParentClass())) {
                 $properties = array_merge($refCls->getProperties(), $properties);
             }
-
             self::$cacheClassProperty[$key] = $properties;
         }
 
         return self::$cacheClassProperty[$key];
     }
 
-    public static function uncamelize($camelCaps, $separator = '_')
+    public static function uncamelize($camelCaps, $separator = '_'): string
     {
         $temp_array = array();
         for ($i = 0; $i < strlen($camelCaps); $i++) {
@@ -123,13 +115,10 @@ class Object2DataArrayHelper
         return implode('', $temp_array);
     }
 
-    // construct
-
-    public static function convertUnderline($str)
+    public static function convertUnderline($str): array|string
     {
         $str = ucwords(str_replace('_', ' ', $str));
-        $str = str_replace(' ', '', lcfirst($str));
-        return $str;
+        return str_replace(' ', '', lcfirst($str));
     }
 
     /**
@@ -157,8 +146,9 @@ class Object2DataArrayHelper
      * @param $instance
      * @param null $data
      * @param int $level 层级-防止无限递归
+     * @throws \ReflectionException
      */
-    public static function setData($instance, $data = null, $level = 1)
+    public static function setData($instance, $data = null, int $level = 1)
     {
         if ($level === 3) return;
 
@@ -169,6 +159,7 @@ class Object2DataArrayHelper
             $properties = self::getAllProperties($ref);
             foreach ($properties as $obj) {
                 $name = $obj->name;
+                // 处理某些属性是类的情况,仅支持继承自BaseEntity的对象
                 $varObj = self::isEntityProperty($obj);
                 $key = self::uncamelize($name);
                 $methodName = 'set' . ucfirst($name);

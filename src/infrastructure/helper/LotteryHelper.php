@@ -25,7 +25,7 @@ class LotteryHelper
      * @param int $maxProp
      * @return int 小于0 则错误，可以视作不中奖，其它情况返回奖项编号
      */
-    public static function randPrize(array $allPrize, $maxProp = 1000)
+    public static function randPrize(array $allPrize, int $maxProp = 1000): int
     {
         $allProp = 0;
         $randPrizeItem = [];

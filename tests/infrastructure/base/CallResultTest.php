@@ -27,7 +27,7 @@ class CallResultTest extends TestCase
 
     /**
      *
-     * @covers \by\base\infrastructure\CallResult::__toString
+     * 
      * @uses   \by\infrastructure\base\CallResult
      * @group  base
      */

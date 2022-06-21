@@ -23,8 +23,5 @@ namespace by\infrastructure\interfaces;
  */
 interface ToJsonStringInterfaces
 {
-
-    // member function
-    function toJsonString();
-
+    function toJsonString(): string;
 }

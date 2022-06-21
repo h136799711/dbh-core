@@ -15,7 +15,8 @@ class OSHelper
      * 系统位数判断
      * @return int
      */
-    public static function systemBit() {
+    public static function systemBit(): int
+    {
         $int = "9223372036854775807";
         $int = intval($int);
         if ($int == 9223372036854775807) {

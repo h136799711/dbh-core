@@ -10,11 +10,13 @@ namespace by\component\exception;
 
 
 use by\infrastructure\constants\BaseErrorCode;
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 class UglyException extends BaseException
 {
-    public function __construct($message = "", $code = BaseErrorCode::Api_EXCEPTION, Throwable $previous = null)
+    #[Pure]
+    public function __construct($message = "未知异常", $code = BaseErrorCode::Api_EXCEPTION, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
