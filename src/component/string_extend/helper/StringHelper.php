@@ -90,6 +90,36 @@ class StringHelper
     ];
 
     /**
+     * ascii码字符串转二进制
+     * @param $string
+     * @return array|false
+     */
+    public function stringToBytes($string): bool|array
+    {
+        return unpack('C*', $string);
+    }
+
+    /**
+     * 二进制转ascii码字符
+     * @param $bytes
+     * @return string
+     */
+    public  function bytesToString($bytes): string
+    {
+        return vsprintf(str_repeat('%c', count($bytes)), $bytes);
+    }
+
+    /**
+     * 2进制转16进制
+     * @param $bytes
+     * @return string
+     */
+    public  function bytesToHex($bytes): string
+    {
+        return vsprintf(str_repeat('%02x', count($bytes)), $bytes);
+    }
+
+    /**
      * 62进制 转 int
      * 不支持太大的数要注意
      * @param $c62
