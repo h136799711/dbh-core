@@ -26,7 +26,10 @@ class StringHelperTest extends TestCase
     public function testFilter() {
         $str = "如果键入了一个地址，，。？：、|=+-*（……&%¥#@！～··/)））（ml/，？请确保标点符号和拼写是正确的。";
         $filter = StringHelper::filterPunctuation($str);
-        var_dump($filter);
+        $this->assertEquals("如果键入了一个地址ml请确保标点符号和拼写是正确的", $filter);
+        $str = "如果键入了23209**）（）（(一个地址，，。？：、|=+-*（……&%¥#@！～··/)））（ml/，？请确保标点符号和拼写是正确的。";
+        $filter = StringHelper::filterPunctuation($str);
+        $this->assertEquals("如果键入了23209一个地址ml请确保标点符号和拼写是正确的", $filter);
     }
 
     // member function
@@ -34,8 +37,10 @@ class StringHelperTest extends TestCase
     public function testTime() {
         $seconds = 3600 * 78 + 3333333;
         $str = TimeHelper::formatString($seconds);
-        var_dump($str);
-
+        $this->assertEquals("2年41天19小时55分33秒", $str);
+        $seconds = 3600 * 79 + 3333303;
+        $str = TimeHelper::formatString($seconds);
+        $this->assertEquals("2年41天20小时55分3秒", $str);
     }
 
 //    public function test62() {

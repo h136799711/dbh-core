@@ -70,7 +70,7 @@ class BaseJsonObjectTest extends TestCase
     public function testJsonObject()
     {
 //        return;
-        $test = new BaseJsonObjectTest();
+        $test = new BaseJsonObjectTest("empty");
 //        var_dump(Object2DataArrayHelper::getDataArrayFrom($test));
 //        exit;
         Object2DataArrayHelper::setData($test, ['id' => '11', 'to_lower' => 'lower', 'to_upper' => 'upper', 'null' => null, 'name' => 'set test entity']);
@@ -114,7 +114,7 @@ class BaseJsonObjectTest extends TestCase
         for ($jj = 0; $jj < $testsCnt; $jj++) {
             $list = [];
             for ($i = 0; $i < 10000; $i++) {
-                array_push($list, new BaseJsonObjectTest());
+                array_push($list, new BaseJsonObjectTest("test".$i));
             }
             $now = microtime(true);
             $len = count($list);
@@ -161,9 +161,9 @@ class BaseJsonObjectTest extends TestCase
         echo "avg time" . $avgTime, "\n";
         echo "max time" . $maxTime, "\n";
         echo "min time" . $minTime, "\n";
-        var_dump(Object2DataArrayHelper::$cacheReflectionCls);
-        var_dump(Object2DataArrayHelper::$cacheEntityProperty);
-        var_dump(Object2DataArrayHelper::$cacheClassProperty);
+        $this->assertCount(1, Object2DataArrayHelper::$cacheReflectionCls);
+        // var_dump(Object2DataArrayHelper::$cacheEntityProperty);
+        // var_dump(Object2DataArrayHelper::$cacheClassProperty);
     }
 
     /**

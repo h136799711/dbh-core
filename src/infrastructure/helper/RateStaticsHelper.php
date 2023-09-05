@@ -14,7 +14,7 @@ class RateStaticsHelper
 
     public int $seconds = 31;
     public array $passedSecondsRate = [];// $seconds - 1秒内接收到的消息数量
-    public int $avgRate = 0; // $seconds - 1秒内的平均消息数量
+    public float $avgRate = 0; // $seconds - 1秒内的平均消息数量
 
     public function record($now, $count = 1)
     {
@@ -44,6 +44,6 @@ class RateStaticsHelper
                 $this->avgRate += $tmp[$j][1];
             }
         }
-        $this->avgRate = number_format($this->avgRate / ($this->seconds - 1), 4, ".", "");
+        $this->avgRate = floatval(number_format($this->avgRate / ($this->seconds - 1), 4, ".", ""));
     }
 }
