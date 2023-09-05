@@ -28,6 +28,5 @@
     "ext-iconv": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^10"
   }
 }
