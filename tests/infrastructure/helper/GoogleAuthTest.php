@@ -15,7 +15,7 @@ final class GoogleAuthTest extends TestCase
         $secret = $helper->createSecret(32);
         echo $secret, "\n";
 
-        $this->assertEquals(32, strlen($secret), "密钥不是12位长度");
+        $this->assertEquals(32, strlen($secret), "密钥不是32位长度");
         $name = "dbh_core_account@gmail.com";
         $title = "dbh_core_brand";
         $qrcode = $helper->getQRCodeGoogleUrl($name, $secret, $title);
